@@ -1,0 +1,76 @@
+body{
+    padding: 0 40px;	
+}
+#mapdiv{
+    width: 100%; 
+    background-color:#aaf; 
+    height: 550px;
+}
+
+#ask{
+   text-align: center;
+    font-size: 25px;
+    margin: 20px;
+    color: #33a;
+    font-family: monospace;
+}
+
+.showalert{
+    position: absolute;
+    box-sizing: border-box;
+    top: 0px;
+    width: 100%;
+    height: 80px;
+    z-index: 100;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px #666;
+    opacity: 1;
+    text-align: center;
+    -webkit-animation-name: showalert; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 0.5s; /* Safari 4.0 - 8.0 */
+    animation-name: showalert;
+    animation-duration: 0.5s;
+  }
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes showalert {
+    0%   {height:0px;opacity:0;}
+    100% {height:80px;opacity:1;}
+}
+/* Standard syntax */
+@keyframes showalert {
+    0%   {height:0px;opacity:0;}
+    100% {height:80px;opacity:1;}
+}
+
+.hidealert{
+    position: absolute;
+    box-sizing: border-box;
+    top: 0px;
+    width: 100%;
+    height: 0px;
+    z-index: 100;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px #666;
+    opacity: 0;
+    text-align: center;
+    -webkit-animation-name: hidealert; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 0.5s; /* Safari 4.0 - 8.0 */
+    animation-name: hidealert;
+    animation-duration: 0.5s;
+ }
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes hidealert {
+    0%   {height:80px;opacity:1;}
+    100% {height:0px;opacity:0; }
+}
+/* Standard syntax */
+@keyframes hidealert {
+    0%   {height:80px;opacity:1;}
+    100% {height:0px;opacity:0; }
+}

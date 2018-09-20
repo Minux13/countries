@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Adivina el país</title>
+
+        <link rel="stylesheet" href="ammap/ammap.css" type="text/css">
+        <link rel="stylesheet" href="static/css/countries.css" type="text/css">
+
+        <script src="ammap/ammap.js" type="text/javascript"></script>
+
+        <!-- map file should be included after ammap.js -->
+
+	<script src="ammap/lang/es.js" type="text/javascript"></script>
+	<script src="ammap/maps/js/worldHigh.js" type="text/javascript"></script>
+	<script>
+	    var valuesContinent = {
+	        codesCountries : [ 
+                    {"id" : "BF"},
+                    {"id" : "DJ"},
+                    {"id" : "BI"},
+                    {"id" : "BJ"},
+                    {"id" : "ZA"},
+                    {"id" : "BW"},
+                    {"id" : "DZ"},
+                    {"id" : "ET"},
+                    {"id" : "RW"},
+                    {"id" : "TZ"},
+                    {"id" : "GQ"},
+                    {"id" : "NA"},
+                    {"id" : "NE"},
+                    {"id" : "NG"},
+                    {"id" : "TN"},
+                    {"id" : "LR"},
+                    {"id" : "LS"},
+                    {"id" : "ZW"},
+                    {"id" : "TG"},
+                    {"id" : "TD"},
+                    {"id" : "ER"},
+                    {"id" : "LY"},
+                    {"id" : "GW"},
+                    {"id" : "ZM"},
+                    {"id" : "CI"},
+                    {"id" : "EH"},
+                    {"id" : "CM"},
+                    {"id" : "EG"},
+                    {"id" : "SL"},
+                    {"id" : "CG"},
+                    {"id" : "CF"},
+                    {"id" : "AO"},
+                    {"id" : "CD"},
+                    {"id" : "GA"},
+                    {"id" : "GN"},
+                    {"id" : "GM"},
+                    //{"id" : "XS"},	//Somailandia
+                    {"id" : "CV"},
+                    {"id" : "GH"},
+                    {"id" : "SZ"},
+                    {"id" : "MG"},
+                    {"id" : "MA"},
+                    {"id" : "KE"},
+                    {"id" : "SS"},
+                    {"id" : "ML"},
+                    {"id" : "KM"},
+                    {"id" : "ST"},
+                    {"id" : "MW"},
+                    {"id" : "SO"},
+                    {"id" : "SN"},
+                    {"id" : "MR"},
+                    {"id" : "UG"},
+                    {"id" : "SD"},
+                    {"id" : "MZ"}
+                ],
+                codesCountriesArray : ["BF", "DJ", "BI", "BJ", "ZA", "BW", "DZ", "ET", "RW", "TZ", "GQ", "NA", "NE", "NG", "TN", "LR", "LS", "ZW", "TG", "TD", "ER", "LY", "GW", "ZM", "CI", "EH", "CM", "EG", "SL", "CG", "CF", "AO", "CD", "GA", "GN", "GM", "CV", "GH", "SZ", "MG", "MA", "KE", "SS", "ML", "KM", "ST", "MW", "SO", "SN", "MR", "UG", "SD", "MZ"],
+	        latitude: 4,
+	        longitude: 15,
+	        zoom: 3.4
+            }
+        </script>
+        <script src="static/js/countries.js" type="text/javascript"></script>
+
+    </head>
+    <body>
+        <div id="ask"></div>
+        <div id="iscorrect" ></div>
+        <div id="mapdiv" ></div>
+    </body>
+</html>
