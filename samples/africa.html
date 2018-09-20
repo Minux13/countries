@@ -1,0 +1,307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>amMap example</title>
+
+        <link rel="stylesheet" href="../ammap/ammap.css" type="text/css">
+        <script src="../ammap/ammap.js" type="text/javascript"></script>
+        <!-- map file should be included after ammap.js -->
+
+	<script src="../ammap/lang/es.js" type="text/javascript"></script>
+	<script src="../ammap/maps/js/worldHigh.js" type="text/javascript"></script>
+
+        <script src="../ammap/themes/black.js" type="text/javascript"></script>
+
+<style>
+body{
+    padding: 0 40px;	
+}
+#ask{
+   text-align: center;
+    font-size: 25px;
+    margin: 20px;
+    color: #33a;
+    font-family: monospace;
+}
+
+.correct{background: #6d6, color: white;}
+.incorrect{background: #d66, color: white;}
+
+.showalert{
+    position: absolute;
+    box-sizing: border-box;
+    top: 0px;
+    width: 100%;
+    height: 80px;
+    z-index: 100;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px #666;
+    opacity: 1;
+    text-align: center;
+    -webkit-animation-name: showalert; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 0.5s; /* Safari 4.0 - 8.0 */
+    animation-name: showalert;
+    animation-duration: 0.5s;
+  }
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes showalert {
+    0%   {height:0px;opacity:0;}
+    100% {height:80px;opacity:1;}
+}
+/* Standard syntax */
+@keyframes showalert {
+    0%   {height:0px;opacity:0;}
+    100% {height:80px;opacity:1;}
+}
+
+.hidealert{
+    position: absolute;
+    box-sizing: border-box;
+    top: 0px;
+    width: 100%;
+    height: 0px;
+    z-index: 100;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px #666;
+    opacity: 0;
+    text-align: center;
+    -webkit-animation-name: hidealert; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 0.5s; /* Safari 4.0 - 8.0 */
+    animation-name: hidealert;
+    animation-duration: 0.5s;
+ }
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes hidealert {
+    0%   {height:80px;opacity:1;}
+    100% {height:0px;opacity:0; }
+}
+/* Standard syntax */
+@keyframes hidealert {
+    0%   {height:80px;opacity:1;}
+    100% {height:0px;opacity:0; }
+}
+
+
+
+</style>
+
+
+        <script>
+
+var colorsGame = {
+    areasColor : "#aab",
+    outlineColor : "#FFF",
+    areaHover : "#449",
+    areaClick: "rgba(0,0,0,0)",
+    unlistedAreasColor : "rgba(200,200,200,0)",
+    unlistedAreasOutlineColor : "rgba(200,200,200,0)",
+    areaCorrect : "#8ac",
+    areaIncorrect : "#c55",
+    tooltipColor: "#ccc",
+    tooltipBackground: "#668"
+};
+
+AmCharts.theme = AmCharts.themes.black;
+var map;
+AmCharts.ready(function() {
+    map = AmCharts.makeChart( "mapdiv", {
+        "type": "map",
+        "theme": "black",
+        "language" : "es",
+        "mouseWheelZoomEnabled" : true,
+	"listeners": [{
+            "event": "clickMapObject",
+            "method": function(event) {
+		var areaClick = event.mapObject;
+	        if( game.countryCodeAsk == areaClick.id ){
+	            areaClick.color = colorsGame.areaCorrect;
+	            areaClick.colorReal = areaClick.color;
+	            //areaClick.mouseEnabled = false;
+	            game.numberCorrects = game.numberCorrects + 1;
+                    areaClick.baseSettings.selectedColor = areaClick.color;
+	            areaClick.validate();
+	            game.correct();
+	        }else{
+	            var area = map.getObjectById(game.countryCodeAsk);
+	            area.color = colorsGame.areaIncorrect;
+	            area.colorReal = area.color;
+                    area.baseSettings.selectedColor = area.color;
+	            //area.mouseEnabled = false;
+                    event.chart.selectObject();//Deselecciona pero reajusta el zoom del mapa
+                    //areaClick.baseSettings.selectedColor = colorsGame.areaHover;
+	            //areaClick.validate();
+		    map.zoomToGroup( [ area ] );
+	            area.validate();
+	            game.inCorrect();
+	        }
+             }
+        }],
+	"zoomControl": {
+	    "zoomFactor": 1.8
+	},
+        "balloon": {
+            "enabled": false,
+            "fontSize" : 18,
+            "adjustBorderColor": true,
+            "color": colorsGame.tooltipColor,
+            "cornerRadius": 5,
+            "verticalPadding" : 8,
+            "horizontalPadding" : 18,
+            "fillAlpha" : 1,
+	    "borderThickness" : 0,
+            "fillColor": colorsGame.tooltipBackground
+        },
+        "dataProvider": {            
+            "map": "worldHigh",
+            //"getAreasFromMap": true, 
+            "zoomLevel": 3.4,
+            "zoomLongitude": 15,
+            "zoomLatitude": 4,
+            "areas": [ 
+{"id" : "BF"},
+{"id" : "DJ"},
+{"id" : "BI"},
+{"id" : "BJ"},
+{"id" : "ZA"},
+{"id" : "BW"},
+{"id" : "DZ"},
+{"id" : "ET"},
+{"id" : "RW"},
+{"id" : "TZ"},
+{"id" : "GQ"},
+{"id" : "NA"},
+{"id" : "NE"},
+{"id" : "NG"},
+{"id" : "TN"},
+{"id" : "LR"},
+{"id" : "LS"},
+{"id" : "ZW"},
+{"id" : "TG"},
+{"id" : "TD"},
+{"id" : "ER"},
+{"id" : "LY"},
+{"id" : "GW"},
+{"id" : "ZM"},
+{"id" : "CI"},
+{"id" : "EH"},
+{"id" : "CM"},
+{"id" : "EG"},
+{"id" : "SL"},
+{"id" : "CG"},
+{"id" : "CF"},
+{"id" : "AO"},
+{"id" : "CD"},
+{"id" : "GA"},
+{"id" : "GN"},
+{"id" : "GM"},
+//{"id" : "XS"},	//Somailandia
+{"id" : "CV"},
+{"id" : "GH"},
+{"id" : "SZ"},
+{"id" : "MG"},
+{"id" : "MA"},
+{"id" : "KE"},
+{"id" : "SS"},
+{"id" : "ML"},
+{"id" : "KM"},
+{"id" : "ST"},
+{"id" : "MW"},
+{"id" : "SO"},
+{"id" : "SN"},
+{"id" : "MR"},
+{"id" : "UG"},
+{"id" : "SD"},
+{"id" : "MZ"}
+            ]
+        },    
+        "areasSettings": {
+	    "color" : colorsGame.areasColor,
+            "outlineColor" : colorsGame.outlineColor,
+            "selectedColor" : colorsGame.areaClick,
+            "selectable": true,
+            "rollOverOutlineColor": "#FFFFFF",
+            "rollOverColor": colorsGame.areaHover,
+            "alpha": 0.8,
+            "unlistedAreasAlpha": 1,
+            "unlistedAreasOutlineAlpha": 1,
+	    "unlistedAreasColor" : colorsGame.unlistedAreasColor,
+            "unlistedAreasOutlineColor" : colorsGame.unlistedAreasOutlineColor
+        }    	
+    });
+
+    game = {
+        countryCodeAsk : "",	
+        codes : ["BF", "DJ", "BI", "BJ", "ZA", "BW", "DZ", "ET", "RW", "TZ", "GQ", "NA", "NE", "NG", "TN", "LR", "LS", "ZW", "TG", "TD", "ER", "LY", "GW", "ZM", "CI", "EH", "CM", "EG", "SL", "CG", "CF", "AO", "CD", "GA", "GN", "GM", "CV", "GH", "SZ", "MG", "MA", "KE", "SS", "ML", "KM", "ST", "MW", "SO", "SN", "MR", "UG", "SD", "MZ"],
+        setRandomCountryCode : function(){
+    	    var numCountrys = this.codes.length;
+    	    if( numCountrys > 0 ){
+    	        var randomCodeNum = Math.floor(Math.random() * numCountrys); 
+    	        game.countryCodeAsk = game.codes[randomCodeNum];
+                this.codes.splice(randomCodeNum, 1);
+    	        this.changeAsk();
+    	    }else{
+    	        document.getElementById('ask').innerHTML = "Correctos " + game.numberCorrects +" de "+ game.numberAreas +" paises";
+    	        map.clickMapObject = function(){;}
+    	        map.balloon.enabled = true;
+    	    }
+        },
+        numberAreas : 0,
+        numberCorrects: 0,
+        timer : "",
+        setTimer: function(){
+    	    clearTimeout(this.timer);
+            this.timer = setTimeout(function(){
+    	        document.getElementById("iscorrect").className = "hidealert";
+		map.goHome();
+    	    }, 1500);   
+        },
+        correct: function(){
+    	    var checkElement = document.getElementById("iscorrect");
+    	    checkElement.innerHTML = "<span style='margin: auto;vertical-align: -30px;color: #fff; font-size: 28px;'>  &#x2713; Correcto </span>";
+	    checkElement.style.background = "#3630d4";
+    	    checkElement.className = "showalert";
+    	    this.setRandomCountryCode();
+    	    this.setTimer();
+        },
+        inCorrect: function(){
+            var checkElement = document.getElementById("iscorrect");
+    	    checkElement.innerHTML = "<span style='margin: auto;vertical-align: -30px;color: #fff; font-size: 28px;'> &#x2717 Incorrecto </span>";
+	    checkElement.style.background = "#d66";
+    	    checkElement.className = "showalert";
+    	    this.setRandomCountryCode();
+    	    this.setTimer();
+        },
+        changeAsk: function(){
+	    var spanishAreaName = map.getObjectById(game.countryCodeAsk).titleTr;
+	    if( !spanishAreaName ){
+		spanishAreaName = map.getObjectById(game.countryCodeAsk).title;	    
+	    }
+            document.getElementById('ask').innerHTML = '¿Dónde se encuentra '+ spanishAreaName +'?';
+        }
+    }
+
+    game.numberAreas = game.codes.length;
+    game.setRandomCountryCode();
+
+});
+        </script>
+    </head>
+
+    <body>
+        <div id="ask"></div>
+        <div id="iscorrect" ></div>
+        <div id="mapdiv" style="width: 100%; background-color:#e0eaff; height: 550px;"></div>
+    </body>
+<script >
+
+</script>
+</html>
